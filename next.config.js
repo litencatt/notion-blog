@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const {
   NOTION_TOKEN,
+  NOTION_ACTIVE_USER_HEADER,
   BLOG_INDEX_ID,
 } = require('./src/lib/notion/server-constants')
 

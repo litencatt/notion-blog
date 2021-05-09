@@ -315,6 +315,7 @@ async function main() {
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
       'content-type': 'application/json',
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: JSON.stringify(requestBody),
   })
@@ -325,11 +326,12 @@ async function main() {
 }
 
 async function getExistingexistingBlockId() {
-  const res = await fetch(`${API_ENDPOINT}/loadPageChunk`, {
+  const res = await fetch(`${API_ENDPOINT}/loadCachedPageChunk`, {
     method: 'POST',
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
       'content-type': 'application/json',
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: JSON.stringify({
       pageId,
@@ -347,7 +349,7 @@ async function getExistingexistingBlockId() {
   }
   const data = await res.json()
   const id = Object.keys(data ? data.recordMap.block : {}).find(
-    id => id !== pageId
+    (id) => id !== pageId
   )
   return id || uuid()
 }
@@ -358,6 +360,7 @@ async function getUserId() {
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
       'content-type': 'application/json',
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: '{}',
   })
