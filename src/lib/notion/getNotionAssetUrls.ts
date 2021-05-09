@@ -1,7 +1,11 @@
 import fetch from 'node-fetch'
 import { getError } from './rpc'
 import { NextApiResponse } from 'next'
-import { NOTION_TOKEN, API_ENDPOINT } from './server-constants'
+import {
+  API_ENDPOINT,
+  NOTION_TOKEN,
+  NOTION_ACTIVE_USER_HEADER,
+} from './server-constants'
 
 export default async function getNotionAsset(
   res: NextApiResponse,
@@ -16,6 +20,7 @@ export default async function getNotionAsset(
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
       'content-type': 'application/json',
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: JSON.stringify({
       urls: [

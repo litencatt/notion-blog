@@ -315,6 +315,7 @@ async function main() {
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
       'content-type': 'application/json',
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: JSON.stringify(requestBody),
   })
@@ -330,6 +331,7 @@ async function getExistingexistingBlockId() {
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
       'content-type': 'application/json',
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: JSON.stringify({
       pageId,
@@ -358,6 +360,7 @@ async function getUserId() {
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
       'content-type': 'application/json',
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: '{}',
   })

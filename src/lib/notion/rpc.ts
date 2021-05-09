@@ -1,5 +1,9 @@
 import fetch, { Response } from 'node-fetch'
-import { API_ENDPOINT, NOTION_TOKEN } from './server-constants'
+import {
+  API_ENDPOINT,
+  NOTION_TOKEN,
+  NOTION_ACTIVE_USER_HEADER,
+} from './server-constants'
 
 export default async function rpc(fnName: string, body: any) {
   if (!NOTION_TOKEN) {
@@ -10,6 +14,7 @@ export default async function rpc(fnName: string, body: any) {
     headers: {
       'content-type': 'application/json',
       cookie: `token_v2=${NOTION_TOKEN}`,
+      'x-notion-active-user-header': `${NOTION_ACTIVE_USER_HEADER}`,
     },
     body: JSON.stringify(body),
   })
@@ -42,7 +47,7 @@ export function getBodyOrNull(res: Response) {
 export function values(obj: any) {
   const vals: any = []
 
-  Object.keys(obj).forEach(key => {
+  Object.keys(obj).forEach((key) => {
     vals.push(obj[key])
   })
   return vals
